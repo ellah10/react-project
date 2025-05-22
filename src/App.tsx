@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import { onAuthStateChanged, signOut, User } from 'firebase/auth';
+import { useAuth } from './context/AuthContext';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { auth, db } from './firebase';
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import DeleteRecipeButton from './components/DeleteRecipeButton';
+import SignUp from './pages/SignUp';
+import Login from './pages/Login';
+import AddRecipe from './pages/AddRecipe';
+import EditRecipe from './pages/EditRecipe';
+import RecipePage from './pages/RecipePage';
+import HomePage from './components/HomePage';
+import AddInitialRecipes from './AddInitialRecipes';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/recipe/:id" element={<RecipePage />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/add" element={<AddRecipe />} />
+      <Route path="/init" element={<AddInitialRecipes />} />
+    </Routes>
   );
 }
 
