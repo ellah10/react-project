@@ -10,7 +10,7 @@ import Login from './pages/Login';
 import AddRecipe from './pages/AddRecipe';
 import EditRecipe from './pages/EditRecipe';
 import RecipePage from './pages/RecipePage';
-import HomePage from './components/HomePage';
+import HomePage from './pages/HomePage';
 import AddInitialRecipes from './AddInitialRecipes';
 import './App.css';
 
@@ -22,6 +22,7 @@ function App() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/login" element={<Login />} />
       <Route path="/add" element={<AddRecipe />} />
+      <Route path="/edit/:id" element={<EditRecipe />} />
       <Route path="/init" element={<AddInitialRecipes />} />
     </Routes>
   );

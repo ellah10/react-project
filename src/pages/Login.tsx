@@ -13,7 +13,7 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/'); // Redirige vers la page d’accueil
+      navigate('/'); 
     } catch (err: any) {
       setError('Incorrect email or password');
     }

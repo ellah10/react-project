@@ -37,14 +37,14 @@ const AddInitialRecipes = () => {
   const handleAddRecipes = async () => {
   try {
     for (const recipe of initialRecipes) {
-      console.log("Ajout de la recette :", recipe.name);
+      console.log("Adding the recipe:", recipe.name);
       await addDoc(collection(db, "recipes"), recipe);
-      console.log("✅ Recette ajoutée :", recipe.name);
+      console.log("✅ Recipe added:", recipe.name);
     }
-    alert("Toutes les recettes ont été ajoutées !");
+    alert("All recipes have been added !");
   } catch (error) {
-    console.error("❌ Erreur lors de l'ajout des recettes :", error);
-    alert("Erreur : voir la console");
+    console.error("❌ Error adding recipes:", error);
+    alert("Error: see console");
   }
 };
 

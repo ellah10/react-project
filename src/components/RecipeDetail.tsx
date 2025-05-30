@@ -1,5 +1,4 @@
 import React from 'react';
-import HomePage from './HomePage';
 import { useNavigate } from 'react-router-dom';
 
 type RecipeDetailProps = {
@@ -9,15 +8,16 @@ type RecipeDetailProps = {
   ingredients: string;
 };
 
-
 const RecipeDetail: React.FC<RecipeDetailProps> = ({ name, photo, description, ingredients }) => {
   const navigate = useNavigate();
+
   const goHome = () => {
-    navigate('/'); 
+    navigate('/');
   };
+
   return (
     <>
-      <div className="recipe-card">
+      <div className="recipe-detail-card">
         <img
           src={process.env.PUBLIC_URL + '/img/' + photo}
           alt={name}
@@ -27,7 +27,7 @@ const RecipeDetail: React.FC<RecipeDetailProps> = ({ name, photo, description, i
         <p><strong>Description:</strong> {description}</p>
         <p><strong>Ingredients:</strong> {ingredients}</p>
       </div>
-      <button onClick={goHome} className='return'>return to homepage</button>
+      <button onClick={goHome} className='return'>Return to homepage</button>
     </>
   );
 };

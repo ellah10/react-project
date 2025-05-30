@@ -11,7 +11,7 @@ const AddRecipe = () => {
   const [name, setName] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [instructions, setInstructions] = useState('');
-  const [photo, setPhoto] = useState('');
+  const [photo, setPhoto] = useState(''); 
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
@@ -31,7 +31,7 @@ const AddRecipe = () => {
         name,
         ingredients,
         instructions,
-        photo,
+        photo, 
         createdAt: Timestamp.now(),
         authorId: user.uid,
         authorEmail: user.email
@@ -39,40 +39,66 @@ const AddRecipe = () => {
       alert("Recipe added!");
       navigate('/');
     } catch (error) {
-      console.error("Error adding:", error);
-      alert("an error has occurred");
+      console.error("Error adding recipe:", error);
+      alert("An error has occurred");
     }
     setLoading(false);
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setPhoto(file.name); 
+    }
+  };
+
   return (
-    <div className='recipeAdd' >
+    <div className='recipeAdd'>
       <h2>Add Recipe</h2>
+
       <input
         type="text"
-        placeholder="recipe name"
+        placeholder="Recipe name"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
+
       <textarea
-        placeholder="Ingrédients (separated by commas)"
+        placeholder="Ingredients (separated by commas)"
         value={ingredients}
         onChange={(e) => setIngredients(e.target.value)}
         rows={4}
       />
+
       <textarea
         placeholder="Preparation instructions"
         value={instructions}
         onChange={(e) => setInstructions(e.target.value)}
         rows={6}
       />
+
       <input
-        type="text"
-        placeholder="Image file name(ex: pasta.jpg)"
-        value={photo}
-        onChange={(e) => setPhoto(e.target.value)}
-        style={{ display: 'block', marginBottom: 10, width: '100%' }}
+        type="file"
+        accept=".jpg,.jpeg,.png"
+        onChange={handleFileChange}
       />
+
+      {photo && (
+        <div>
+          <strong>Selected image:</strong> {photo}
+          <div>
+            <img
+              src={`/img/${photo}`}
+              alt="Preview"
+              style={{ maxWidth: '100%', maxHeight: 200, marginTop: 10 }}
+              onError={(e) =>
+                (e.currentTarget.src = '/img/placeholder.jpg') 
+              }
+            />
+          </div>
+        </div>
+      )}
+
       <button onClick={handleSubmit} disabled={loading}>
         {loading ? 'Addition in progress...' : 'Add recipe'}
       </button>

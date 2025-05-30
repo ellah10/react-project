@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import RecipeDetail from '../components/RecipeDetail';
 import { doc, getDoc } from 'firebase/firestore';
+import CommentsSection from '../components/CommentsSection';
 import { db } from '../firebase';
 
 interface Recipe {
@@ -32,7 +33,7 @@ const RecipePage = () => {
           setRecipe(null);
         }
       } catch (error) {
-        console.error("Erreur lors du chargement de la recette :", error);
+        console.error("error on recipe loading.... :", error);
         setRecipe(null);
       } finally {
         setLoading(false);
@@ -42,18 +43,19 @@ const RecipePage = () => {
     fetchRecipe();
   }, [id]);
 
-  if (loading) return <p>Chargement...</p>;
-  if (!recipe) return <p>Recette non trouvée.</p>;
+  if (loading) return <p>loading...</p>;
+  if (!recipe) return <p>Recipe not found.</p>;
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1>Détails de la recette</h1>
+      <h1>Recipe information</h1>
       <RecipeDetail
         name={recipe.name}
         photo={recipe.photoURL}
         description={recipe.description}
         ingredients={recipe.ingredients}
       />
+      <CommentsSection recipeId={id!} />
     </div>
   );
 };
